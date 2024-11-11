@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <link rel="shortcut icon" href="/img/favicon.png">
+  <link rel="stylesheet" href="/css/modelo.css">
+  <link rel="stylesheet" href="/css/atendentePessoas.css">
+</head>
+
+<body>
+  <header id="header">
+    <img src="/img/logo.png" alt="Logo" id="logo" onclick="navigation('/atendente/index')">
+    
+    <nav id="nav">
+      <button aria-label="Abrir Menu" id="btn-mobile" aria-haspopup="true" aria-controls="menu" aria-expanded="false">
+        <span id="hamburger"></span>
+      </button>
+
+      <ul id="menu" role="menu">
+        <li class="navLi" onclick="navigation('/atendente/index')">
+          <img src="/img/home.png" alt="icon" class="icon">Home
+        </li>
+        <li class="navLi" onclick="navigation('/atendente/novoChamado')">
+          <img src="/img/create.png" alt="icon"class="icon">Novo Chamado
+        </li>
+        <li class="navLi" onclick="navigation('/atendente/pessoas')">
+          <img src="/img/users.png" alt="icon" class="icon">Lista de Pessoas
+        </li>
+        <li class="navLi" onclick="navigation('/atendente/minhaConta')">
+          <img src="/img/perfil.png" alt="icon" class="icon">MinhaConta
+        </li>
+        <li class="navLi" onclick="navigation('/logout')">
+          <img src="/img/logout.png" alt="icon" class="icon">Log Out
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Lista de Pessoas</h1>
+    <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Buscar na tabela...">
+    <div class="table-container">  
+      <table id="lista">
+        <thead>
+          <tr>
+            <th onclick="sortTable(0)">Id</th>
+            <th onclick="sortTable(1)">Nome</th>
+            <th onclick="sortTable(2)">Sobrenome</th>
+            <th onclick="sortTable(3)">Perfil</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="pessoa : ${pessoas}"
+            th:attr= "data-id-pessoa=${pessoa.id_pessoa},
+                      data-nome=${pessoa.nome},
+                      data-sobrenome=${pessoa.sobrenome},
+                      data-perfil=${pessoa.perfilPessoa.name()}" onclick="openModal(this)">
+            <td id="id_pessoa" th:text="${pessoa.id_pessoa}"></td>
+            <td th:text="${pessoa.nome}"></td>
+            <td th:text="${pessoa.sobrenome}"></td>
+            <td th:switch="${pessoa.perfilPessoa.name()}" id="modalPerfil">
+              <span th:case="'ATENDENTE'">Atendente</span>
+              <span th:case="'USUARIO'">Usuário</span>
+              <span th:case="*">Perfil Desconhecido</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+    <div id="pessoaModal" class="modal">
+      <div class="modal-content">
+        <form th:action="@{/atendente/alterar/perfil}" method="post">
+          <span class="close" onclick="closeModal()">&times;</span>
+          <h2>Detalhes da Pessoa</h2>
+          <p><strong>Nome:</strong> <span id="modalNome"></span></p>
+          <p><strong>Sobrenome:</strong> <span id="modalSobrenome"></span></p>
+          <input type="hidden" name="id_user" id="modalId">
+          <label for="opcoes"><strong>Alterar perfil:</strong></label>
+          <select id="opcoes" name="opcoes">
+            <option value="opcao1">Atendente</option>
+            <option value="opcao2">Usuário</option>
+          </select>
+          <div id="container-btn">
+            <button class="button button-confirmar" name="acao" value="salvar">Salvar</button>
+            <button class="button button-cancelar" name="acao" value="deletar">Deletar</button>
+          </div>         
+        </form>
+      </div>
+  </main>
+
+  <footer>
+    <p>Para mais informações clique em
+      <a href="/fale_conosco.html">Fale Conosco</a>
+    </p>
+  </footer>
+  <script src="/js/modelo.js"></script>
+  <script src="/js/atendentePessoas.js"></script>
+</body>
+
+</html>

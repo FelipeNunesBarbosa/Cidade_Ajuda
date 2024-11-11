@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="_csrf" th:content="${_csrf.token}" />
+  <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+  <title>Home</title>
+  <link rel="shortcut icon" href="/img/favicon.png">
+  <link rel="stylesheet" href="/css/modelo.css">
+  <link rel="stylesheet" href="/css/userIndex.css">
+</head>
+
+<body>
+  <header id="header">
+    <img src="/img/logo.png" alt="Logo" id="logo" onclick="navigation('/usuario/index')">
+    <nav id="nav">
+      <button aria-label="Abrir Menu" id="btn-mobile" aria-haspopup="true" aria-controls="menu" aria-expanded="false">
+        <span id="hamburger"></span>
+      </button>
+      <ul id="menu" role="menu">
+        <li class="navLi" onclick="navigation('/usuario/index')"><img src="/img/home.png" alt="icon" class="icon">
+          Home</li>
+        <li class="navLi" onclick="navigation('/usuario/novoChamado')"><img src="/img/create.png" alt="icon"
+            class="icon">
+          Novo
+          Chamado</li>
+        <li class="navLi" onclick="navigation('/usuario/avaliarChamado')"><img src="/img/historico.png" alt="icon"
+            class="icon">
+          Avaliar Chamado</li>
+        <li class="navLi" onclick="navigation('/usuario/minhaConta')"><img src="/img/perfil.png" alt="icon"
+            class="icon">
+          Minha
+          Conta</li>
+        <li class="navLi" onclick="navigation('/logout')"><img src="/img/logout.png" alt="icon" class="icon"> Log
+          Out</li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Bem-vindo ao Cidade Ajuda!</h1>
+    <form th:action="@{/usuario/index}" method="get">
+      <div id="container-pai">
+        <div class="container-chamados">
+          <h2>Todos</h2>
+          <h2>os Chamados</h2>
+          <p>Total: <span th:text="${totalChamados}"></span></p>
+          <button type="submit" name="filtro" value="Todos" class="button button-confirmar">Exibir</button>
+        </div>
+        <div class="container-chamados">
+          <h2>Chamados</h2>
+          <h2>em aberto</h2>
+          <p>Total: <span th:text="${totalAberto}"></span></p>
+          <button type="submit" name="filtro" value="Aberto" class="button button-confirmar">Exibir</button>
+        </div>
+        <div class="container-chamados">
+          <h2>Chamados</h2>
+          <h2>em andamento</h2>
+          <p>Total: <span th:text="${totalAndamento}"></span></p>
+          <button type="submit" name="filtro" value="Andamento" class="button button-confirmar">Exibir</button>
+        </div>
+        <div class="container-chamados">
+          <h2>Chamados</h2>
+          <h2>encerrados</h2>
+          <p>Total: <span th:text="${totalEncerrado}"></span></p>
+          <button type="submit" name="filtro" value="Encerrado" class="button button-confirmar">Exibir</button>
+        </div>
+      </div>
+    </form>
+    <div id="input-container">
+      <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Buscar na tabela...">
+      <button class="button button-confirmar" onclick="fecharTabela()">Fechar</button>
+    </div>
+    <div class="table-container">
+    <table id="lista">
+      <thead>
+        <tr>
+          <th onclick="sortTable(0)">Número</th>
+          <th onclick="sortTable(1)">Título</th>
+          <th onclick="sortTable(2)">Data</th>
+          <th onclick="sortTable(3)">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="chamado : ${chamados}" th:onclick="'navigation(\'/usuario/chamado/' + ${chamado.id_chamado} + '\')'">
+          <td th:text="'INC' + ${chamado.id_chamado}"></td>
+          <td th:text="${chamado.titulo}"></td>
+          <td th:text="${chamado.data_atualizacao}"></td>
+          <td th:text="${chamado.statusChamado}"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  </main>
+
+  <footer>
+    <p>Para mais informações clique em
+      <a href="fale_conosco.html">Fale Conosco</a>
+    </p>
+  </footer>
+  <script src="/js/modelo.js"></script>
+  <script th:inline="javascript" src="/js/userIndex.js"></script>
+  <script th:inline="javascript">
+
+    const userId = /*[[${id_pessoa}]]*/ 'default';
+    test(userId)
+
+  </script>
+</body>
+
+</html>

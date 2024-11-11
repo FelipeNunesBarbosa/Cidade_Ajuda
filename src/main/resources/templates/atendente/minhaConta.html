@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil</title>
+  <link rel="shortcut icon" href="/img/favicon.png">
+  <link rel="stylesheet" href="/css/modelo.css">
+  <link rel="stylesheet" href="/css/atendenteMinhaConta.css">
+</head>
+
+<body>
+  <header id="header">
+    <img src="/img/logo.png" alt="Logo" id="logo" onclick="navigation('/atendente/index')">
+    
+    <nav id="nav">
+      <button aria-label="Abrir Menu" id="btn-mobile" aria-haspopup="true" aria-controls="menu" aria-expanded="false">
+        <span id="hamburger"></span>
+      </button>
+
+      <ul id="menu" role="menu">
+        <li class="navLi" onclick="navigation('/atendente/index')">
+          <img src="/img/home.png" alt="icon" class="icon">Home
+        </li>
+        <li class="navLi" onclick="navigation('/atendente/novoChamado')">
+          <img src="/img/create.png" alt="icon"class="icon">Novo Chamado
+        </li>
+        <li class="navLi" onclick="navigation('/atendente/pessoas')">
+          <img src="/img/users.png" alt="icon" class="icon">Lista de Pessoas
+        </li>
+        <li class="navLi" onclick="navigation('/atendente/minhaConta')">
+          <img src="/img/perfil.png" alt="icon" class="icon">MinhaConta
+        </li>
+        <li class="navLi" onclick="navigation('/logout')">
+          <img src="/img/logout.png" alt="icon" class="icon">Log Out
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Minha Conta</h1>
+    <div id="container">
+      <div class="cadastroUser">
+        <input type="text" name="nome" th:value="${nome}" class="input readonly" id="nome" placeholder="Nome:" readonly>
+        <input type="text" name="sobrenome" th:value="${sobrenome}" class="input readonly" id="sobrenome"
+          placeholder="Sobrenome:" readonly>
+        <input type="text" name="cpf" th:value="${cpf}" class="input readonly" id="cpf" placeholder="CPF:" readonly>
+        <input type="tel" name="telefone" th:value="${telefone}" class="input readonly" id="telefone"
+          placeholder="Telefone:" readonly>
+        <input type="text" name="email" th:value="${email}" class="input readonly" id="email" placeholder="E-mail:"
+          readonly>
+        <div class="input-date input readonly">
+          <label for="data">Data de nascimento:</label>
+          <input type="date" name="nascimento" th:value="${nascimento}" class="readonly" id="data"
+            placeholder="Aberto Por:" readonly>
+        </div>
+      </div>
+      <div class="cadastroUser">
+        <div class="input readonly" id="input-modal">
+          <input type="text" name="CEP" th:value="${cep}" class="readonly" id="cep" placeholder="CEP:" maxlength="8"
+            readonly>
+          <img src="/img/lupa.png" alt="icon" id="icon-modal">
+        </div>
+        <input type="text" name="rua" th:value="${rua}" class="input readonly" id="rua" placeholder="Rua:" readonly>
+        <input type="text" name="numero" th:value="${numero}" class="input readonly" id="numero" placeholder="Número:"
+          readonly>
+        <input type="text" name="bairro" th:value="${bairro}" class="input readonly" id="bairro" placeholder="Bairro:"
+          readonly>
+        <input type="text" name="estado" th:value="${estado}" class="input readonly" id="estado" placeholder="Estado:"
+          readonly>
+        <input type="text" name="cidade" th:value="${cidade}" class="input readonly" id="cidade" placeholder="Cidade:"
+          readonly>
+      </div>
+    </div>
+    <div class="cadastroUser" style="display: flex; justify-content: space-between;">
+      <div>
+        <input type="button" class="button button-confirmar" value="Alterar" onclick="navigation('alterarConta')" >
+        <input type="button" class="button button-cancelar" value="Alterar Senha" onclick="openModal()" >
+      </div>
+    </div>
+    <div id="modalAlterarSenha" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Alterar Senha</h2>
+        <form th:action="@{/atendente/alterar/senha}" method="post">
+          <label for="senhaAntiga">Senha Antiga:</label>
+          <input type="password" class="input" id="senhaAntiga" name="senhaAntiga" required>
+          <label for="novaSenha">Nova Senha:</label>
+          <input type="password" class="input" id="novaSenha" name="novaSenha" required>
+          <label for="confirmarSenha">Confirmar Nova Senha:</label>
+          <input type="password" class="input" id="confirmarSenha" name="confirmarSenha" required>
+          <button type="submit" class="button button-confirmar">Alterar</button>
+          <input type="button" value="Cancelar" class="button button-cancelar" onclick="closeModal()">
+        </form>
+      </div>
+    </div>
+    
+  </main>
+  <footer>
+    <p>Para mais informações clique em
+      <a href="fale_conosco.html">Fale Conosco</a>
+    </p>
+  </footer>
+  <script src="/js/modelo.js"></script>
+  <script src="/js/atendenteMinhaConta.js"></script>
+</body>
+
+</html>

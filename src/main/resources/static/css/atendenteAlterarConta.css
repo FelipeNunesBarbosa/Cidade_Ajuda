@@ -1,0 +1,160 @@
+#container {
+    margin: auto;
+    font-size: 1.5em;
+    display: block;
+}
+
+.cadastroUser {
+    width: 100%;
+}
+
+.input {
+    font-size: .9em;
+    padding: 5px;
+    width: 95%;
+    border: none;
+    border-bottom: gray solid 1px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.input-date {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    /* Coluna automática para o label e coluna flexível para o input */
+    align-items: center;
+    gap: 10px;
+    /* Espaçamento entre o label e o input */
+    padding-top: 3px;
+}
+
+.input-date label {
+    color: gray;
+}
+
+#cep {
+    font-size: 1em;
+    outline: none;
+}
+
+#data {
+    font-size: 1em;
+    outline: none;
+}
+
+#icon-modal {
+    width: 26px;
+    margin-bottom: 5px;
+}
+
+#input-modal {
+    padding: 5px 5px 0px 5px;
+}
+
+.input input {
+    flex: 1;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+
+.modal-content input {
+    margin-top: 20px;
+    font-size: 1rem;
+}
+
+.modal-content li {
+    margin: 20px 0px 0px 20px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Estilo para o modal */
+.modalConfirmar {
+    display: none; /* Escondido por padrão */
+    position: fixed; /* Fixa o modal na tela */
+    z-index: 1; /* Posição sobreposta */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Permite scroll se necessário */
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo semitransparente */
+}
+
+
+@media(min-width: 850px) {
+    #mod {
+        right: 20%;
+    }
+
+    #container {
+        display: flex;
+    }
+
+    .cadastroUser {
+        width: 50%;
+    }
+
+    #allSkills {
+        min-height: 20px;
+        width: 99%;
+    }
+
+    #addSkill {
+        top: 412px;
+    }
+}
+
+@media(min-width: 700px) {
+    #container {
+        display: flex;
+    }
+
+    .cadastroUser {
+        width: 50%;
+    }
+
+    #allSkills {
+        min-height: 20px;
+        width: 99%;
+    }
+
+    #addSkill {
+        top: 412px;
+    }
+}

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alterar Usuário</title>
+    <link rel="shortcut icon" href="/img/favicon.png">
+    <link rel="stylesheet" href="/css/modelo.css">
+    <link rel="stylesheet" href="/css/atendenteAlterarConta.css">
+</head>
+
+<body>
+    <header id="header">
+        <img src="/img/logo.png" alt="Logo" id="logo" onclick="navigation('/atendente/index')">
+
+        <nav id="nav">
+            <button aria-label="Abrir Menu" id="btn-mobile" aria-haspopup="true" aria-controls="menu"
+                aria-expanded="false">
+                <span id="hamburger"></span>
+            </button>
+
+            <ul id="menu" role="menu">
+                <li class="navLi" onclick="navigation('/atendente/index')">
+                    <img src="/img/home.png" alt="icon" class="icon">Home
+                </li>
+                <li class="navLi" onclick="navigation('/atendente/novoChamado')">
+                    <img src="/img/create.png" alt="icon" class="icon">Novo Chamado
+                </li>
+                <li class="navLi" onclick="navigation('/atendente/pessoas')">
+                    <img src="/img/users.png" alt="icon" class="icon">Lista de Pessoas
+                </li>
+                <li class="navLi" onclick="navigation('/atendente/minhaConta')">
+                    <img src="/img/perfil.png" alt="icon" class="icon">MinhaConta
+                </li>
+                <li class="navLi" onclick="navigation('/logout')">
+                    <img src="/img/logout.png" alt="icon" class="icon">Log Out
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <form th:action="@{/atendente/alterar/conta}" method="post" id="meuFormulario">
+            <h1>Alterar Usuário</h1>
+            <div id="container">
+                <div class="cadastroUser">
+                    <input type="hidden" name="id" th:value="${id_pessoa}">
+                    <input type="text" name="nome" th:value="${nome}" class="input" id="nome" placeholder="Nome:" required>
+                    <input type="text" name="sobrenome" th:value="${sobrenome}" class="input" id="sobrenome" placeholder="Sobrenome:" required>
+                    <input type="text" name="cpf" th:value="${cpf}" class="input" id="cpf" placeholder="CPF:" maxlength="14" required>
+                    <input type="tel" name="telefone" th:value="${telefone}" class="input" id="telefone" placeholder="Telefone:" maxlength="15" required>
+                    <input type="email" name="email" th:value="${email}" class="input" id="email" placeholder="E-mail:" required>
+                    <div class="input-date input">
+                        <label for="data">Data de nascimento:</label>
+                        <input type="date" th:value="${nascimento}" name="nascimento" id="data" required>
+                    </div>                    
+                </div>
+                <div class="cadastroUser">
+                    <div class="input" id="input-modal">
+                        <input type="text" name="cep" id="cep" th:value="${cep}" placeholder="CEP:" maxlength="9" required>
+                        <img src="/img/lupa.png" alt="icon" id="icon-modal" onclick="openModal()">
+                    </div>
+                    <input type="text" name="rua" class="input readonly" id="rua" th:value="${rua}" placeholder="Rua:" readonly>
+                    <input type="text" name="numero" class="input" id="numero" th:value="${numero}" placeholder="Número:">
+                    <input type="text" name="bairro" class="input readonly" id="bairro" th:value="${bairro}" placeholder="Bairro:" readonly>
+                    <input type="text" name="estado" class="input readonly" id="estado" th:value="${estado}" placeholder="Estado:" readonly>
+                    <input type="text" name="cidade" class="input readonly" id="cidade" th:value="${cidade}" placeholder="Cidade:" readonly>
+                </div>
+            </div>
+            <div class="cadastroUser">
+                <input type="button" value="Salvar" class="button button-confirmar" onclick="openModalConfirmar()">
+                <input type="button" value="Cancelar" class="button button-cancelar" onclick="navigation('/atendente/minhaConta')">
+            </div>
+            <div id="myModalConfirmar" class="modalConfirmar">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModalConfirmar()">&times;</span>
+                    <p>Tem certeza de que deseja salvar as alterações?</p>
+                    <button class="button button-confirmar" id="confirmar">Confirmar</button>
+                    <input type="button" class="button button-cancelar" value="Fechar" onclick="closeModalConfirmar()">
+                </div>
+            </div>
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal()">&times;</span>
+                    <h2>Buscar CEP</h2>
+                    <input type="text" class="input" id="rua_modal" placeholder="Rua:">
+                    <input type="text" class="input" id="cidade_modal" placeholder="Cidade:">
+                    <input type="text" class="input" id="estado_modal" placeholder="Estado:">
+                    <input type="button" value="Buscar" id="btnBuscarCepModal" class="button button-confirmar" onclick="btnBuscarCep()">
+                    <input type="button" value="Cancelar" id="cancelar" class="button button-cancelar" onclick="closeModal()">
+                    <ul id="listaCep"></ul>
+                </div>
+            </div>
+        </form>
+    </main>
+
+    <footer>
+        <p>Para mais informações clique em
+            <a href="fale_conosco.html">Fale Conosco</a>
+        </p>
+    </footer>
+    
+    <script src="/js/atendenteAlterarConta.js"></script>
+    <script src="/js/modelo.js"></script>
+</body>
+
+</html>

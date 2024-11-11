@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="shortcut icon" href="/img/favicon.png">
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+    <main>
+        <form th:action="@{/login}" method="post">
+            <img src="/img/cidade-ajuda.png" alt="logo_cidade_ajuda">
+            <div class="input-container">
+                <input type="email" name="username" id="email" class="text-input" autocomplete="off"
+                    placeholder="Entre com seu email:" value="">
+                <label for="email" class="label">Email</label>
+            </div>
+            <div class="input-container">
+                <input type="password" id="senha" class="text-input" name="password" autocomplete="off"
+                    placeholder="Entre com sua senha:" value="">
+                <label for="senha" class="label">Senha</label>
+            </div>
+            <div class="input-container">
+                <button type="submit" id="logar">Login</button>
+                <a th:href="@{/cadastro}" id="registrar">Registrar-se</a>
+            </div>
+            <div th:if="${error}" id="return_error">
+                <p th:text="${error}"></p>
+            </div>
+            <p th:if="${param.logout}" class="text-success">Você foi desconectado com sucesso!</p>
+        </form>
+        <div id="cabecalho"></div>
+        <div class="conteudo"></div>
+    </main>
+    <footer>
+
+    </footer>
+    <script src="/js/modelo.js"></script>
+</body>
+</html>

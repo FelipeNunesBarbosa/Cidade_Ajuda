@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chamado</title>
+  <link rel="shortcut icon" href="/img/favicon.png">
+  <link rel="stylesheet" href="/css/modelo.css">
+  <link rel="stylesheet" href="/css/atendenteChamado.css">
+</head>
+
+<body>
+  <header id="header">
+    <img src="/img/logo.png" alt="Logo" id="logo" onclick="navigation('/atendente/index')">
+    
+    <nav id="nav">
+      <button aria-label="Abrir Menu" id="btn-mobile" aria-haspopup="true" aria-controls="menu" aria-expanded="false">
+        <span id="hamburger"></span>
+      </button>
+
+      <ul id="menu" role="menu">
+        <li class="navLi" onclick="navigation('/atendente/index')">
+          <img src="/img/home.png" alt="icon" class="icon">Home
+        </li>
+        <li class="navLi" onclick="navigation('/atendente/novoChamado')">
+          <img src="/img/create.png" alt="icon"class="icon">Novo Chamado
+        </li>
+        <li class="navLi" onclick="navigation('/atendente/pessoas')">
+          <img src="/img/users.png" alt="icon" class="icon">Lista de Pessoas
+        </li>
+        <li class="navLi" onclick="navigation('/atendente/minhaConta')">
+          <img src="/img/perfil.png" alt="icon" class="icon">MinhaConta
+        </li>
+        <li class="navLi" onclick="navigation('/logout')">
+          <img src="/img/logout.png" alt="icon" class="icon">Log Out
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Chamado</h1>
+    <form th:action="@{/atendente/alterar/chamado}" method="post">
+      <div id="container">
+        <div class="chamado">
+          <input type="text" name="id_chamado" class="input readonly" id="numero" placeholder="N° Chamado:"
+            th:value="${numero}" readonly>
+          <input type="text" name="usuario" class="input readonly" id="abertoPor" placeholder="Aberto Por:"
+            th:value="${usuario}" readonly>
+          <input type="tel" name="telefone" class="input readonly" id="telefone" placeholder="Telefone:"
+            th:value="${telefone}" readonly>
+          <input type="text" name="email" class="input readonly" id="email" placeholder="E-mail:" th:value="${email}"
+            readonly>
+        </div>
+        <div class="chamado">
+          <input type="text" name="statusChamado" class="input readonly" id="status" placeholder="Status:"
+            th:value="${statusChamado}" readonly>
+          <div class="input" id="input-modal">
+            <input type="hidden" name="id_atendente" id="id_atendente" th:value="${id_atendente}">
+            <input type="text" name="atendente" id="atendente" placeholder="Atendente:" th:value="${atendente}"
+              readonly>
+            <img src="/img/lupa.png" alt="icon" id="icon-modal" onclick="openModal()">
+          </div>
+          <div class="input-date input readonly">
+            <label for="data">Data de criação:</label>
+            <input type="date" name="dataChamado" class="readonly" id="dataChamado" th:value="${dataChamado}" readonly>
+          </div>
+          <div class="input-date input readonly">
+            <label for="data">Ultima atualização:</label>
+            <input type="date" name="dataAtualização" class="readonly" id="dataAtualização"
+              th:value="${dataAtualização}" readonly>
+          </div>
+        </div>
+        <div id="myModal" class="modal">
+          <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h4>Lista de atendentes</h4>
+            <ul class="historico_chamado" th:if="${atendentes != null}">
+              <li th:each="atendente : ${atendentes}"
+                th:onclick="'setAtendente(' + @{${atendente.id_pessoa}} + ', \'' + @{${atendente.nome}} + '\')'">
+                <strong>ID:</strong> <span th:text="${atendente.id_pessoa}"></span><br>
+                <strong>Nome:</strong> <span th:text="${atendente.nome}"></span><br>
+                <strong>Email:</strong> <span th:text="${atendente.email}"></span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="container-chamado">
+        <label for="titulo">Titulo</label>
+        <input type="text" name="titulo" id="titulo" class="readonly font" placeholder="Descrição curta:"
+          th:value="${titulo}" readonly>
+        <label for="descricao">Descrição</label>
+        <textarea name="descricao" id="descricao" class="readonly font" placeholder="Descrição do chamado:"
+          th:text="${descricao}" readonly></textarea>
+        <button type="submit" class="button button-confirmar" id="salvar" name="acao" value="salvar">Salvar</button>
+        <button type="submit" class="button button-cancelar" id="encerrar" name="acao" value="encerrar">Encerrar Chamado</button>
+      </div>
+    </form>
+
+    <form th:action="@{/atendente/nova/conversa}" method="post">
+      </div>
+      <div class="container-chamado">
+        <label for="novaConversa">Nova conversa</label>
+        <textarea name="novaConversa" id="novaConversa" placeholder="Nova conversa"></textarea>
+      </div>
+      <input type="hidden" name="id_chamado" th:value="${numero}">
+      <input type="hidden" name="id_user" th:value="${id_pessoa}">
+      <div class="chamado">
+        <button type="submit" class="button button-confirmar" id="enviar" name="acao" value="enviar">Enviar</button>
+    </form>
+    <h2>Historico de conversa</h2>
+    <ul class="historico_chamado" th:if="${chats != null}">
+      <li th:each="chat : ${chats}">
+        <span class="date" th:text="${chat.data_chat + ' ' + chat.hora_chat}"></span>
+        <div class="author" th:text="${chat.id_user.nome}"></div>
+        <div class="message" th:text="${chat.conversa}"></div>
+      </li>
+    </ul>
+  </main>
+
+  <footer>
+    <p>Para mais informações clique em
+      <a href="/fale_conosco.html">Fale Conosco</a>
+    </p>
+  </footer>
+  <script src="/js/modelo.js"></script>
+  <script src="/js/atendenteChamado.js"></script>
+</body>
+
+</html>

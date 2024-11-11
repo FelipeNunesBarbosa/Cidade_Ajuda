@@ -1,0 +1,83 @@
+#input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-sizing: border-box;
+}
+
+#container-filtro,
+#container-input {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#container-filtro {
+    flex-wrap: wrap;
+}
+
+#filtro {
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid rgb(1, 26, 56);
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s;
+    flex: 1;
+}
+
+#filtro:focus {
+    border-color: rgb(1, 26, 56);
+}
+
+#searchInput {
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid rgb(1, 26, 56);
+    border-radius: 5px;
+    outline: none;
+    width: 100%;
+    max-width: 400px;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 18px;
+    text-align: left;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border-radius: 10px;
+}
+th, td {
+    padding: 12px 15px;
+    cursor: pointer;
+}
+thead tr {
+    background-color: rgb(1, 26, 56);
+    color: #ffffff;
+}
+tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+tbody tr:nth-child(even) {
+    background-color: #eeeeee;
+}
+tbody tr:hover {
+    background-color: #d1e7f1;
+}
+th, td {
+    border-bottom: 1px solid #dddddd;
+}
+th {
+    background-color: rgb(1, 26, 56);
+    color: white;
+}
+td {
+    color: rgb(1, 26, 56);
+}

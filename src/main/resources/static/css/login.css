@@ -1,0 +1,194 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+    background: rgb(1, 26, 56);
+}
+
+main{
+    margin: auto;
+    width: 50%;
+    height: 550px;
+    margin-top: 40px;
+    padding-top: 30px;
+    text-align: center;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.575);
+}
+
+img{
+    width: 70%;
+    padding: 10px;
+}
+
+.input-container{
+    width: 70%;
+    position: relative;
+    margin: auto;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+input{
+    margin-bottom: 20px;
+    color: black;
+}
+
+.label{
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    transition: all 0.2s;
+    padding: 0 2px;
+    z-index: 1;
+    color: #727272;
+    user-select: none;
+}
+
+.label::before{
+    content: '';
+    height: 5px;
+    background: white;
+    position: absolute;
+    left: 0px;
+    top: 10px;
+    width: 100%;
+    z-index: -1;
+}
+
+.text-input{
+    padding: 0.8rem 0rem 0.8rem 0.8rem;
+    width: 98%;
+    height: 100%;
+    border: solid 2px rgb(1, 26, 56);
+    background: white;
+    border-radius: 5px;
+    font-size: 18px;
+    outline: none;
+    transition: all 0.3s;
+    color: black;
+}
+
+.text-input:focus{
+    border: 2px solid rgb(1, 26, 56);
+}
+
+.text-input:focus + .label{
+    top: -10px;
+    color: rgb(1, 26, 56);
+    font-size: 18px;
+    text-shadow: 1.5px 1px 2px rgba(0, 0, 0, 0.493);
+}
+
+.text-input:focus + .label #icon{
+    top: 6px;
+}
+
+.text-input::placeholder{
+    font-size: 16px;
+    opacity: 0;
+    transition: all 0.3s;
+}
+
+.text-input:focus::placeholder{
+    opacity: 1;
+}
+
+.text-input:not(:placeholder-shown) + .label{
+    top: -10px;
+    color: rgb(1, 26, 56);
+    font-size: 10;
+}
+
+#logar{
+    display: inline-block;
+    padding: 0.8rem;
+    width: 49%;
+    height: 100%;
+    border: solid 2px rgb(1, 26, 56);
+    background: #272530;
+    border-radius: 5px;
+    font-size: 18px;
+    outline: none;
+    transition: all 0.3s;
+    color: white;
+}
+
+#registrar{
+    display: inline-block;
+    padding: 0.8rem;
+    width: 50%;
+    border: solid 2px rgb(1, 26, 56);
+    background: lightgray;
+    border-radius: 5px;
+    font-size: 18px;
+    outline: none;
+    transition: all 0.3s;
+    color: rgb(1, 26, 56);
+}
+
+#logar:hover{
+    border: 2px solid rgb(1, 26, 56);
+}
+
+#registrar:hover{
+    border: 2px solid rgb(1, 26, 56);
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}
+
+#return_error {
+    margin-top: 10px;
+    color: red;
+}
+
+
+@media(max-width: 1200px){
+    img{
+        width: 70%;
+    }
+    main{
+        margin-top: 30px;
+        width: 60%;
+    }
+}
+
+@media(max-width: 992px){
+    img{
+        width: 75%;
+    }
+    main{
+        margin-top: 25px;
+        width: 70%;
+    } 
+}
+
+@media(max-width: 768px){    
+    img{
+        width: 80%;
+    }
+    main{
+        margin-top: 20px;
+        width: 80%;
+    }
+}
+
+@media(max-width: 576px){    
+    img{
+        margin-top: 15px;
+        width: 85%;
+    }
+    main{
+        margin-top: 10px;
+        width: 90%;
+    }
+}

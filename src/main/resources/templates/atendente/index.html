@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <link rel="shortcut icon" href="/img/favicon.png">
+  <link rel="stylesheet" href="/css/modelo.css">
+  <link rel="stylesheet" href="/css/atendenteIndex.css">
+</head>
+
+<body>
+  <header id="header">
+    <img src="/img/logo.png" alt="Logo" id="logo" onclick="navigation('/atendente/index')">
+
+    <nav id="nav">
+      <button aria-label="Abrir Menu" id="btn-mobile" aria-haspopup="true" aria-controls="menu" aria-expanded="false">
+        <span id="hamburger"></span>
+      </button>
+
+      <ul id="menu" role="menu">
+        <li class="navLi" onclick="navigation('/atendente/index')">
+          <img src="/img/home.png" alt="icon" class="icon">Home
+        </li>
+        <li class="navLi" onclick="navigation('/atendente/novoChamado')">
+          <img src="/img/create.png" alt="icon" class="icon">Novo Chamado
+        </li>
+        <li class="navLi" onclick="navigation('/atendente/pessoas')">
+          <img src="/img/users.png" alt="icon" class="icon">Lista de Pessoas
+        </li>
+        <li class="navLi" onclick="navigation('/atendente/minhaConta')">
+          <img src="/img/perfil.png" alt="icon" class="icon">MinhaConta
+        </li>
+        <li class="navLi" onclick="navigation('/logout')">
+          <img src="/img/logout.png" alt="icon" class="icon">Log Out
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Lista de chamados</h1>
+
+    <div id="input-container">
+      <div id="container-filtro">
+        <form th:action="@{/atendente/index}" method="get">
+          <select id="filtro" name="filtro" class="ui dropdown">
+            <option class="opt_filtro" th:value="todos" th:text="'Todos'" th:selected="${filtro == 'todos'}"></option>
+            <option class="opt_filtro" th:value="meusChamados" th:text="'Meus Chamados'"
+              th:selected="${filtro == 'meusChamados'}"></option>
+            <option class="opt_filtro" th:value="Aberto" th:text="'Chamados não atribuídos'"
+              th:selected="${filtro == 'Aberto'}"></option>
+            <option class="opt_filtro" th:value="Encerrado" th:text="'Chamados Encerrados'"
+              th:selected="${filtro == 'Encerrado'}"></option>
+            <option class="opt_filtro" th:value="Andamento" th:text="'Chamados em Andamento'"
+              th:selected="${filtro == 'Andamento'}"></option>
+          </select>
+          <button type="submit" class="button button-confirmar" id="buscar">Filtrar</button>
+        </form>
+      </div>
+
+      <div id="container-input">
+        <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Buscar chamado...">
+      </div>
+    </div>
+
+    <div class="table-container">
+      <table id="lista">
+        <thead>
+          <tr>
+            <th onclick="sortTable(0)">Número</th>
+            <th onclick="sortTable(1)">Título</th>
+            <th onclick="sortTable(2)">Data</th>
+            <th onclick="sortTable(3)">Status</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr th:each="chamado : ${chamados}"
+          th:onclick="'navigation(\'/atendente/chamado/' + ${chamado.id_chamado} + '\')'" id="inc">
+            <td th:text="'INC' + ${chamado.id_chamado}"></td>
+            <td th:text="${chamado.titulo}"></td>
+            <td th:text="${chamado.data_atualizacao}"></td>
+            <td th:text="${chamado.statusChamado}"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <footer>
+    <p>Para mais informações clique em
+      <a href="fale_conosco.html">Fale Conosco</a>
+    </p>
+  </footer>
+
+  <script src="/js/modelo.js"></script>
+</body>
+
+</html>

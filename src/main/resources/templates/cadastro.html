@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <link rel="shortcut icon" href="/img/favicon.png">
+    <link rel="stylesheet" href="/css/modelo.css">
+    <link rel="stylesheet" href="/css/cadastroUser.css">
+</head>
+
+<body>
+    <header id="header">
+        <img src="img/logo.png" alt="Logo" id="logo" onclick="navigation('login')">
+
+        <nav id="nav">
+            <button aria-label="Abrir Menu" id="btn-mobile" aria-haspopup="true" aria-controls="menu"
+                aria-expanded="false">
+                <span id="hamburger"></span>
+            </button>
+            
+            <ul id="menu" role="menu">
+                <li class="navLi" onclick="navigation('/login')"><img src="/img/home.png" alt="icon" class="icon">Voltar</li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <form th:action="@{/cadastro}" method="post">
+            <h1>Cadastro de Usuário</h1>
+            <div id="container">
+                <div class="cadastroUser">
+                    <input type="text" name="nome" class="input" id="nome" placeholder="Nome:" required>
+                    <input type="text" name="sobrenome" class="input" id="sobrenome" placeholder="Sobrenome:" required>
+                    <input type="text" name="cpf" class="input" id="cpf" placeholder="CPF:" maxlength="14" required>
+                    <input type="tel" name="telefone" class="input" id="telefone" placeholder="Telefone:" maxlength="15"
+                        required>
+                    <input type="email" name="email" class="input" id="email" placeholder="E-mail:" required>
+                    <div class="input-date input">
+                        <label for="data">Data de nascimento:</label>
+                        <input type="date" name="nascimento" id="data" required>
+                    </div>
+                    <div class="input" id="input-modal">
+                        <input type="text" name="cep" id="cep" placeholder="CEP:" maxlength="9" required>
+                        <img src="img/lupa.png" alt="icon" id="icon-modal" onclick="openModal()">
+                    </div>
+                </div>
+                <div class="cadastroUser">
+                    <input type="text" name="rua" class="input readonly" id="rua" placeholder="Rua:" readonly>
+                    <input type="text" name="numero" class="input" id="numero" placeholder="Número:">
+                    <input type="text" name="bairro" class="input readonly" id="bairro" placeholder="Bairro:" readonly>
+                    <input type="text" name="estado" class="input readonly" id="estado" placeholder="Estado:" readonly>
+                    <input type="text" name="cidade" class="input readonly" id="cidade" placeholder="Cidade:" readonly>
+                    <input type="password" name="senha" class="input" id="senha" placeholder="Senha" required>
+                    <input type="password" name="confirmarSenha" class="input" id="confirmarSenha"
+                        placeholder="Confirmar Senha" required>
+                </div>
+            </div>
+            <div class="cadastroUser">
+                <button class="button button-confirmar">Salvar</button>
+                <input type="button" class="button button-cancelar" value="Limpar" onclick="limparDados()">
+            </div>
+            <div th:if="${error}" id="return_error">
+                <p th:text="${error}"></p>
+            </div>
+            <div th:if="${message}" id="return_message">
+                <p th:text="${message}"></p>
+            </div>
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal()">&times;</span>
+                    <h2>Buscar CEP</h2>
+                    <input type="text" class="input" id="rua_modal" placeholder="Rua:">
+                    <input type="text" class="input" id="cidade_modal" placeholder="Cidade:">
+                    <input type="text" class="input" id="estado_modal" placeholder="Estado:">
+                    <input type="button" class="button button-confirmar" value="Buscar" id="btnBuscarCepModal" onclick="btnBuscarCep()">
+                    <input type="button" class="button button-cancelar" value="Cancelar" onclick="closeModal()">
+                    <ul id="listaCep"></ul>
+                </div>
+            </div>
+        </form>
+    </main>
+    <footer>
+        <p>Para mais informações clique em
+            <a href="fale_conosco.html">Fale Conosco</a>
+        </p>
+    </footer>
+    <script src="/js/cadastroUser.js"></script>
+    <script src="/js/modelo.js"></script>
+</body>
+
+</html>
